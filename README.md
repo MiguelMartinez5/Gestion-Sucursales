@@ -125,4 +125,40 @@ docker build -t gestion-franquicias .
 ```
 docker run -p 8080:8080 gestion-franquicias
 ```
+**Crear la Base de Datos**
+``` Crear la base de datos
+CREATE DATABASE calzadoDB;
+
+
+```
+
+**Crear Tablas**
+
+``` Crear la tabla franquicia con código único
+CREATE TABLE franquicia (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    codigo VARCHAR(50) NOT NULL UNIQUE, 
+    nombre VARCHAR(255) NOT NULL
+);
+
+ Crear la tabla sucursal con código único
+CREATE TABLE sucursal (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY, 
+    codigo VARCHAR(50) NOT NULL UNIQUE, 
+    nombre VARCHAR(255) NOT NULL,
+    franquicia_id BIGINT,
+    FOREIGN KEY (franquicia_id) REFERENCES franquicia(id)
+);
+
+ Crear la tabla producto con código único
+CREATE TABLE producto (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    codigo VARCHAR(50) NOT NULL UNIQUE, 
+    nombre VARCHAR(255) NOT NULL,
+    stock INT NOT NULL,
+    sucursal_id BIGINT,
+    FOREIGN KEY (sucursal_id) REFERENCES sucursal(id)
+);
+
+
 
